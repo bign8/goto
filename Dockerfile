@@ -9,3 +9,5 @@ FROM alpine
 EXPOSE 8080
 COPY --from=go /go/src/github.com/bign8/goto/goto /
 ENTRYPOINT ["/goto"]
+
+# docker run --rm -it -p 9980:8080 -v /var/spool/goto/store.gob:/store.json bign8/goto:latest -host=url.bign8.info
