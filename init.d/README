@@ -1,0 +1,4 @@
+# init.d
+
+The `goto` file can be added to `/etc/init.d` directory of unix systems.
+This will allow the goto process to be started automagically on system restarts.

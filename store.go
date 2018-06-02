@@ -1,11 +1,11 @@
 // Copyright 2011 Google Inc.
-// 
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 //      http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 //      Unless required by applicable law or agreed to in writing, software
 //      distributed under the License is distributed on an "AS IS" BASIS,
 //      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,7 +18,6 @@ import (
 	"bufio"
 	"encoding/json"
 	"errors"
-	"github.com/nf/stat"
 	"io"
 	"log"
 	"net/rpc"
@@ -61,7 +60,7 @@ func NewURLStore(filename string) *URLStore {
 }
 
 func (s *URLStore) Get(key, url *string) error {
-	defer statSend("store get")
+	// defer statSend("store get")
 	s.mu.RLock()
 	defer s.mu.RUnlock()
 	if u, ok := s.urls[*key]; ok {
@@ -82,7 +81,7 @@ func (s *URLStore) Set(key, url *string) error {
 }
 
 func (s *URLStore) Put(url, key *string) error {
-	defer statSend("store put")
+	// defer statSend("store put")
 	for {
 		*key = genKey(s.count)
 		s.count++
@@ -175,8 +174,8 @@ func (s *ProxyStore) Put(url, key *string) error {
 	return nil
 }
 
-func statSend(s string) {
-	if *statServer != "" {
-		stat.In <- s
-	}
-}
+// func statSend(s string) {
+// 	if *statServer != "" {
+// 		stat.In <- s
+// 	}
+// }

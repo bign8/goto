@@ -1,11 +1,11 @@
 // Copyright 2011 Google Inc.
-// 
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 //      http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 //      Unless required by applicable law or agreed to in writing, software
 //      distributed under the License is distributed on an "AS IS" BASIS,
 //      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,7 +17,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/nf/stat"
 	"net/http"
 	"net/rpc"
 )
@@ -28,7 +27,7 @@ var (
 	hostname   = flag.String("host", "localhost:8080", "http host name")
 	masterAddr = flag.String("master", "", "RPC master address")
 	rpcEnabled = flag.Bool("rpc", false, "enable RPC server")
-	statServer = flag.String("stats", "", "stat server address")
+	// statServer = flag.String("stats", "", "stat server address")
 )
 
 var store Store
@@ -44,10 +43,10 @@ func main() {
 		rpc.RegisterName("Store", store)
 		rpc.HandleHTTP()
 	}
-	if *statServer != "" {
-		stat.Process = *listenAddr
-		go stat.Monitor(*statServer)
-	}
+	// if *statServer != "" {
+	// 	stat.Process = *listenAddr
+	// 	go stat.Monitor(*statServer)
+	// }
 	http.HandleFunc("/", Redirect)
 	http.HandleFunc("/add", Add)
 	http.ListenAndServe(*listenAddr, nil)
